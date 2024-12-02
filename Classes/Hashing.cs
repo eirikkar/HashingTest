@@ -16,4 +16,13 @@ public class Hashing
     byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, new byte[0], Iterations, HashAlgorithm, HashSize);
     return Convert.ToHexString(hash);
   }
+
+  public bool Verify(string password, string hash)
+  {
+    string[] parts = hash.Split('.');
+    byte[] salt = Convert.FromHexString(parts[0]);
+    byte[] hashToCheck = Convert.FromHexString(parts[1]);
+    byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithm, HashSize);
+    return CryptographicOperations.FixedTimeEquals(inputHash, hashToCheck);
+  }
 }
