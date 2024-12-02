@@ -24,6 +24,10 @@ class Program
     {
       Console.WriteLine("Enter password to check");
       string? input = Console.ReadLine();
+      if (input == null)
+      {
+        return "Error";
+      }
       if (string.IsNullOrWhiteSpace(input))
       {
         Console.WriteLine("Please type something");
