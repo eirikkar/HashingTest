@@ -11,4 +11,9 @@ public class Hashing
     byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithm, HashSize);
     return $"{Convert.ToHexString(salt)}.{Convert.ToHexString(hash)}";
   }
+  public string HashWithoutSalt(string password)
+  {
+    byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, new byte[0], Iterations, HashAlgorithm, HashSize);
+    return Convert.ToHexString(hash);
+  }
 }
