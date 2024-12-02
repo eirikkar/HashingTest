@@ -25,4 +25,10 @@ public class Hashing
     byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithm, HashSize);
     return CryptographicOperations.FixedTimeEquals(inputHash, hashToCheck);
   }
+  public bool VerifyWithoutSalt(string password, string hash)
+  {
+    byte[] hashToCheck = Convert.FromHexString(hash);
+    byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(password, new byte[0], Iterations, HashAlgorithm, HashSize);
+    return CryptographicOperations.FixedTimeEquals(inputHash, hashToCheck);
+  }
 }
